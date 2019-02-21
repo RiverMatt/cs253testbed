@@ -1,9 +1,10 @@
 # Makefile for new program 
 
-CC = gcc
-CFLAGS = -Wall -std=c99
 EXE = fahr
 OBJS = fahr.o 
+
+CC = gcc
+CFLAGS = -Wall -std=c99
 
 all: $(EXE)
 
