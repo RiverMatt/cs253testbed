@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-/*
- * Print fahr -> celcius table
+/* Print fahr -> celcius table
+ *
  */
 
 #define LOWER 0
@@ -14,8 +14,8 @@ int main(void) {
 	char* title = "F -> C";
 	char* barrier = "=-=-=-=-=-=-=-=-=-=";
 
-	printf("\n%20s\n\n", title);
-	printf("\t%s\n\n", barrier);
+	printf("\n%20s\n\n", title);		// Insert the title with a specified width of 20
+	printf("\t%s\n\n", barrier);		// Insert the barrier string
 
 	for (fahr = LOWER; fahr <= UPPER; fahr += STEP) {
 		printf("%15d %6.1f\n", fahr, (5.0/9.0)*(fahr-32));
