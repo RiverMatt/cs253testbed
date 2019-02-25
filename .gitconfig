@@ -1,0 +1,14 @@
+[user]
+	name = Matt Arnold
+	email = mattarnold@u.boisestate.edu
+[core]
+	editor = vim
+[alias]
+	lga = log --oneline --decorate --graph --all --color
+	lg = log --oneline --decorate --graph --color
+	tracked = ls-tree -r master --name-only
+	rmtracked = rm --cached
+[diff]
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
