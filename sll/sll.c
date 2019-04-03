@@ -7,29 +7,24 @@ struct node {
 	struct node* next;
 };
 
-struct node* add(char*, struct node*);
+struct node* add(char*);
 
 int main(int argc, char** argv) {
+	
+	/* Setting up the head and tail */
+	struct node* head = add("test");
+	struct node* tail = head;
 
-	struct node* head;
-	struct node* tail;
-	head = (struct node*) malloc(sizeof(struct node));
-	tail = (struct node*) malloc(sizeof(struct node));
-	tail = head;
-
-	head->next = NULL;
-	tail->next = NULL;
-
-	strncpy(head->bfr, "test1", sizeof(head->bfr));
-
+	/* Adding nodes */
 	for (int i = 0; i < 10; i++) {
 		char str[256];
 		sprintf(str, "test%d", i);
-		struct node* newNode = add(str, tail);
+		struct node* newNode = add(str);
 		tail->next = newNode;
 		tail = newNode;
 	}
 
+	/* Traversing the list */
 	struct node* current;
 	current = head;
 	while (current->next != NULL) {
@@ -40,7 +35,10 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
-struct node* add(char* str, struct node* tail) {
+/**
+ * Creates and returns a new node pointer with the specified string parameter.
+ */
+struct node* add(char* str) {
 	
 	struct node* n;
 	n = (struct node*) malloc(sizeof(struct node));
