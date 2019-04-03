@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	/* Traversing the list */
 	struct node* current;
 	current = head;
-	while (current->next != NULL) {
+	while (current != NULL) {
 		printf("%s\n", current->bfr);
 		current = current->next;
 	}
