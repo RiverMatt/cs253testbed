@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 }
 
 /**
- * Creates a new node with the specified string parameter,  and returns a pointer to it.
+ * Creates a new node pointer with the specified string parameter,  and returns a pointer to it.
  */
 struct node* add(char* str) {
 	
