@@ -1,9 +1,15 @@
+#ifdef __STDC_ALLOC_LIB__
+#define __STDC_WANT_LIB_EXT2__ 1
+#else
+#define _POSIX_C_SOURCE 200809L
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 struct node {
-	char bfr[256];
+	char* bfr;
 	struct node* next;
 };
 
@@ -43,7 +49,8 @@ struct node* add(char* str) {
 	struct node* n;
 	n = (struct node*) malloc(sizeof(struct node));
 	
-	strncpy(n->bfr, str, sizeof(n->bfr));
+	n->bfr = strdup(str);
+	//strncpy(n->bfr, str, sizeof(n->bfr));
 	n->next = NULL;
 
 	return n;
