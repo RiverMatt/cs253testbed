@@ -13,19 +13,19 @@ struct node {
 	struct node* next;
 };
 
-struct node* add(char*);
+struct node* createNode(char*);
 
 int main(int argc, char** argv) {
 	
 	/* Setting up the head and tail */
-	struct node* head = add("test");
+	struct node* head = createNode("test");
 	struct node* tail = head;
 
 	/* Adding nodes */
 	for (int i = 0; i < 10; i++) {
 		char str[256];
 		sprintf(str, "test%d", i);
-		struct node* newNode = add(str);
+		struct node* newNode = createNode(str);
 		tail->next = newNode;
 		tail = newNode;
 	}
@@ -44,13 +44,12 @@ int main(int argc, char** argv) {
 /**
  * Creates a new node pointer with the specified string parameter,  and returns a pointer to it.
  */
-struct node* add(char* str) {
+struct node* createNode(char* str) {
 	
 	struct node* n;
 	n = (struct node*) malloc(sizeof(struct node));
 	
 	n->bfr = strdup(str);
-	//strncpy(n->bfr, str, sizeof(n->bfr));
 	n->next = NULL;
 
 	return n;
