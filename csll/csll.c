@@ -64,21 +64,14 @@ struct node* createNode(char* str) {
 
 void addToRear(char* str) {
 	
-	struct node* newhead = head;
+	struct node* newHead;
+	newHead = (struct node*) malloc(sizeof(struct node));
+	newHead->bfr = head->bfr;
+	newHead->next = head->next;
 
-	struct node* current = head;
-	while (current->next != head) {
-		current = current->next;
-	}
+	head->bfr = strdup(str);
+	head->next = newHead;
 
-	struct node* n;
-	n = (struct node*) malloc(sizeof(struct node));
-	
-	n->bfr = strdup(str);
-	n->next = newhead;
-
-	current->next = n;
-
-	head = newhead;
+	head = newHead;
 }
 
