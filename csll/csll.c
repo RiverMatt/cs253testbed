@@ -8,35 +8,39 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * A basic circular single linked list program that creates a head, then adds nodes
+ * to the end of the list with an incrementing string. It then prints the string
+ * contents of the nodes.
+ * Author: Matt Arnold
+ */
+
 struct node {
 	char* bfr;
 	struct node* next;
 };
 
 struct node* createNode(char*);
+void addToRear(char*);
 
 struct node* head;
 
 int main(int argc, char** argv) {
 	
-	/* Setting up the head and tail */
+	/* Setting up the head */
 	head = createNode("test");
 	head->next = head;
-	struct node* tail = head;
 
-	/* Adding nodes */
-	for (int i = 0; i < 10; i++) {
+	/* Adding nodes */ for (int i = 0; i < 10; i++) {
 		char str[256];
-		sprintf(str, "test%d", i);
-		struct node* newNode = createNode(str);
-		tail->next = newNode;
-		tail = newNode;
+		sprintf(str, "tesst%d", i);
+		addToRear(str);
 	}
-
+	
 	/* Traversing the list */
 	struct node* current;
 	current = head;
-	while (current != NULL) {
+	while (current->next != head) {
 		printf("%s\n", current->bfr);
 		current = current->next;
 	}
@@ -56,5 +60,25 @@ struct node* createNode(char* str) {
 	n->next = NULL;
 
 	return n;
+}
+
+void addToRear(char* str) {
+	
+	struct node* newhead = head;
+
+	struct node* current = head;
+	while (current->next != head) {
+		current = current->next;
+	}
+
+	struct node* n;
+	n = (struct node*) malloc(sizeof(struct node));
+	
+	n->bfr = strdup(str);
+	n->next = newhead;
+
+	current->next = n;
+
+	head = newhead;
 }
 
