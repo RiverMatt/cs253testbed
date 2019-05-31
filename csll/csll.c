@@ -22,6 +22,8 @@ struct node {
 
 struct node* createNode(char*);
 void addToRear(char*);
+void removeLast(void);
+char* removeElement(char*);
 
 struct node* head;
 
@@ -33,9 +35,14 @@ int main(int argc, char** argv) {
 
 	/* Adding nodes */ for (int i = 0; i < 10; i++) {
 		char str[256];
-		sprintf(str, "tesst%d", i);
+		sprintf(str, "test%d", i);
 		addToRear(str);
 	}
+
+	removeLast();
+	removeLast();
+	removeLast();
+	printf("%s\n", removeElement("test4x"));
 	
 	/* Traversing the list */
 	struct node* current;
@@ -62,6 +69,9 @@ struct node* createNode(char* str) {
 	return n;
 }
 
+/**
+ * Creates a new node and adds it at the back of the circular linked list.
+ */
 void addToRear(char* str) {
 	
 	struct node* newHead;
@@ -75,3 +85,38 @@ void addToRear(char* str) {
 	head = newHead;
 }
 
+/**
+ * Removes the last element from the CSLL
+ */
+void removeLast() {
+	
+	struct node* current;
+	current = head;
+	while (current->next->next != head) {
+		current = current->next;
+	}
+	
+	free(current->next);
+	current->next = head;
+}
+
+/**
+ * Removes the node containing the given element.
+ */
+char* removeElement(char* element) {
+	
+	char* notfound = "-1";
+
+	struct node* current;
+	current = head;
+	while (strcmp(current->next->bfr, element) < 0 && current-> next != head){
+		current = current->next;
+	}
+
+	if (strcmp(current->next->bfr, element) == 0) {
+		current->next = current->next->next;
+		return element;
+	} else {
+		return notfound;
+	}
+}
