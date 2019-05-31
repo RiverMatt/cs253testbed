@@ -22,7 +22,7 @@ struct node {
 
 struct node* createNode(char*);
 void addToRear(char*);
-void removeLast(void);
+char* removeLast(void);
 char* removeElement(char*);
 
 struct node* head;
@@ -31,7 +31,6 @@ int main(int argc, char** argv) {
 	
 	/* Setting up the head */
 	head = createNode("test");
-//	head->next = head;
 
 	/* Adding nodes */ for (int i = 0; i < 10; i++) {
 		char str[256];
@@ -43,6 +42,17 @@ int main(int argc, char** argv) {
 	removeLast();
 	removeLast();
 	printf("%s\n", removeElement("test3"));
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
+	removeLast();
 	
 	/* Traversing the list */
 	struct node* current;
@@ -88,25 +98,48 @@ void addToRear(char* str) {
 /**
  * Removes the last element from the CSLL
  */
-void removeLast() {
+char* removeLast() {
 	
+	char* bfr = "-1";
+
+	if (head == NULL) {
+		perror("No list!");
+		return bfr;
+	}
+
+	if (head->next == head) {
+		bfr = head->bfr;
+		free(head);
+		head = NULL;
+		return bfr;
+	}
+
 	struct node* current;
 	current = head;
 	while (current->next->next != head) {
 		current = current->next;
 	}
 	
+	bfr = current->bfr;
 	free(current->next);
+//	current->next = NULL;
 	current->next = head;
+	return bfr;
 }
 
 /**
- * Removes the node containing the given element.
+ * Removes the node containing the given element and returns the element. Returns a char* 
+ * of -1 if element is not found.
  */
 char* removeElement(char* element) {
 	
 	char* notfound = "-1";
 
+	if (head == NULL) {
+		perror("No list!");
+		return notfound;
+	}
+	
 	struct node* current;
 	current = head;
 	while (strncmp(current->next->bfr, element, strlen(element)) < 0 && current-> next != head){
@@ -115,8 +148,9 @@ char* removeElement(char* element) {
 
 	if (strncmp(current->next->bfr, element, strlen(element)) == 0) {
 		current->next = current->next->next;
+		free(current->next);
+//		current->next = NULL;
 		return element;
-	} else {
-		return notfound;
+	} else { return notfound;
 	}
 }

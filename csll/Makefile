@@ -6,7 +6,7 @@ OBJS = $(EXE).o
 all: $(EXE)
 
 #------Build a DEBUG version
-debug: CFLAGS += -DDEBUG -g -O0
+debug: CFLAGS += -DDEBUG -g -O0 -ggdb
 debug: $(EXE)
 
 
