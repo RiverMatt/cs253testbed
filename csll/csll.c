@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 	
 	/* Setting up the head */
 	head = createNode("test");
-	head->next = head;
+//	head->next = head;
 
 	/* Adding nodes */ for (int i = 0; i < 10; i++) {
 		char str[256];
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 	removeLast();
 	removeLast();
 	removeLast();
-	printf("%s\n", removeElement("test4x"));
+	printf("%s\n", removeElement("test3"));
 	
 	/* Traversing the list */
 	struct node* current;
@@ -64,7 +64,7 @@ struct node* createNode(char* str) {
 	n = (struct node*) malloc(sizeof(struct node));
 	
 	n->bfr = strdup(str);
-	n->next = NULL;
+	n->next = n;
 
 	return n;
 }
@@ -109,11 +109,11 @@ char* removeElement(char* element) {
 
 	struct node* current;
 	current = head;
-	while (strcmp(current->next->bfr, element) < 0 && current-> next != head){
+	while (strncmp(current->next->bfr, element, strlen(element)) < 0 && current-> next != head){
 		current = current->next;
 	}
 
-	if (strcmp(current->next->bfr, element) == 0) {
+	if (strncmp(current->next->bfr, element, strlen(element)) == 0) {
 		current->next = current->next->next;
 		return element;
 	} else {
