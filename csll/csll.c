@@ -24,6 +24,7 @@ struct node* createNode(char*);
 void addToRear(char*);
 char* removeLast(void);
 char* removeElement(char*);
+void printList(void);
 
 struct node* head;
 
@@ -38,11 +39,11 @@ int main(int argc, char** argv) {
 		addToRear(str);
 	}
 
-	removeLast();
+	char* retbfr = removeLast();
 	removeLast();
 	removeLast();
 	printf("%s\n", removeElement("test3"));
-	removeLast();
+	printf("%s\n", retbfr);
 	removeLast();
 	removeLast();
 	removeLast();
@@ -54,13 +55,7 @@ int main(int argc, char** argv) {
 	removeLast();
 	removeLast();
 	
-	/* Traversing the list */
-	struct node* current;
-	current = head;
-	while (current->next != head) {
-		printf("%s\n", current->bfr);
-		current = current->next;
-	}
+	printList();
 
 	return 0;
 }
@@ -89,7 +84,7 @@ void addToRear(char* str) {
 	newHead->bfr = head->bfr;
 	newHead->next = head->next;
 
-	head->bfr = strdup(str);
+	head->bfr = strndup(str, strlen(str));
 	head->next = newHead;
 
 	head = newHead;
@@ -100,15 +95,15 @@ void addToRear(char* str) {
  */
 char* removeLast() {
 	
-	char* bfr = "-1";
-
 	if (head == NULL) {
-		perror("No list!");
-		return bfr;
+		printf("No list!\n");
+		return NULL;
 	}
 
 	if (head->next == head) {
-		bfr = head->bfr;
+//		bfr = strndup(head->bfr, strlen(head->bfr));
+		char* bfr = head->bfr;
+//		free(head->bfr);
 		free(head);
 		head = NULL;
 		return bfr;
@@ -120,9 +115,10 @@ char* removeLast() {
 		current = current->next;
 	}
 	
-	bfr = current->bfr;
+	char* bfr = current->bfr;
+//	bfr = strndup(current->bfr, strlen(current->bfr));	// if I malloc this here to return it... how do I free it?
+//	free(current->bfr); // valgrind says this is an invalid free
 	free(current->next);
-//	current->next = NULL;
 	current->next = head;
 	return bfr;
 }
@@ -133,11 +129,9 @@ char* removeLast() {
  */
 char* removeElement(char* element) {
 	
-	char* notfound = "-1";
-
 	if (head == NULL) {
-		perror("No list!");
-		return notfound;
+		printf("No list!\n");
+		return NULL;
 	}
 	
 	struct node* current;
@@ -147,10 +141,28 @@ char* removeElement(char* element) {
 	}
 
 	if (strncmp(current->next->bfr, element, strlen(element)) == 0) {
-		current->next = current->next->next;
+		struct node* newNext = current->next->next;
+		free(current->next->bfr);
 		free(current->next);
-//		current->next = NULL;
+		current->next = newNext;
 		return element;
-	} else { return notfound;
+	} else { 
+		return NULL;
+	}
+}
+
+void printList() {
+
+	/* Traversing the list */
+	if (head != NULL) {
+		
+		struct node* current;
+		current = head;
+		while (current->next != head) {
+			printf("%s\n", current->bfr);
+			current = current->next;
+		}
+	} else {
+		printf("No list!!\n");
 	}
 }
