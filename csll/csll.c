@@ -101,9 +101,8 @@ char* removeLast() {
 	}
 
 	if (head->next == head) {
-//		bfr = strndup(head->bfr, strlen(head->bfr));
-		char* bfr = head->bfr;
-//		free(head->bfr);
+		char* bfr = strndup(head->bfr, strlen(head->bfr));
+		free(head->bfr);
 		free(head);
 		head = NULL;
 		return bfr;
@@ -116,7 +115,7 @@ char* removeLast() {
 	}
 	
 	char* bfr = current->bfr;
-//	bfr = strndup(current->bfr, strlen(current->bfr));	// if I malloc this here to return it... how do I free it?
+	bfr = strndup(current->bfr, strlen(current->bfr));	// if I malloc this here to return it... how do I free it?
 //	free(current->bfr); // valgrind says this is an invalid free
 	free(current->next);
 	current->next = head;
